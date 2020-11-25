@@ -12,6 +12,7 @@
         <module>log-collector</module>
         <module>JedisTest</module>
         <module>JUC</module>
+        <module>HDFS</module>
     </modules>
 
 
