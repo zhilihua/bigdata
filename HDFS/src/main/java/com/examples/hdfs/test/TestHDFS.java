@@ -40,15 +40,28 @@ public class TestHDFS {
         fs.mkdirs(new Path("/IEDA"));
     }
 
+    //上传文件
     @Test
     public void TestUpload() throws IOException {
         fs.copyFromLocalFile(false, true,
                 new Path("C:\\Users\\james\\Desktop\\深度学习和数据分析.docx"), new Path("/"));
     }
 
+    //下载文件
     @Test
     public void TestDownload() throws IOException {
         fs.copyToLocalFile(false, new Path("/深度学习和数据分析.docx"),
                 new Path("d:/111"), true);
+    }
+
+    //删除文件
+    @Test
+    public void TestDelete() throws IOException {
+        fs.delete(new Path("/深度学习和数据分析.docx"), true);
+    }
+    //重命名
+    @Test
+    public void TestRename() throws IOException {
+        fs.rename(new Path("/IEDA"), new Path("/IDEA"));
     }
 }
