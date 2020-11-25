@@ -3,6 +3,8 @@ package com.examples.hdfs.test;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -15,16 +17,38 @@ import java.net.URISyntaxException;
  * @Date: 2020/11/24 23:07
  */
 public class TestHDFS {
-    @Test
-    public void TestMkdir() throws IOException, InterruptedException, URISyntaxException {
+    private Configuration conf;
+    private FileSystem fs;
+
+    @Before
+    public void init() throws URISyntaxException, IOException, InterruptedException {
         //1 获取文件系统
-        Configuration conf = new Configuration();
+        conf = new Configuration();
         //配置集群参数
-        FileSystem fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), conf, "root");
+        fs = FileSystem.get(new URI("hdfs://hadoop102:9000"), conf, "root");
+    }
 
-        //2 创建目录
+    @After
+    public void close() throws IOException {
+        if (fs != null)
+            fs.close();
+    }
+
+    @Test
+    public void TestMkdir() throws IOException {
+        // 创建目录
         fs.mkdirs(new Path("/IEDA"));
+    }
 
-        fs.close();
+    @Test
+    public void TestUpload() throws IOException {
+        fs.copyFromLocalFile(false, true,
+                new Path("C:\\Users\\james\\Desktop\\深度学习和数据分析.docx"), new Path("/"));
+    }
+
+    @Test
+    public void TestDownload() throws IOException {
+        fs.copyToLocalFile(false, new Path("/深度学习和数据分析.docx"),
+                new Path("d:/111"), true);
     }
 }
