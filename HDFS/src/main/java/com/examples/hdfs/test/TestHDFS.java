@@ -1,6 +1,7 @@
 package com.examples.hdfs.test;
 
 import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.junit.After;
@@ -63,5 +64,26 @@ public class TestHDFS {
     @Test
     public void TestRename() throws IOException {
         fs.rename(new Path("/IEDA"), new Path("/IDEA"));
+    }
+    //判断当前文件是否存在
+    @Test
+    public void TestIfPathExists() throws IOException {
+        System.out.println(fs.exists(new Path("/IDES")));
+    }
+
+    //判断是文件还是路径
+    @Test
+    public void TestFileIsDir() throws IOException {
+        Path path = new Path("/user");
+//        FileStatus fileStatus = fs.getFileStatus(path);
+
+        FileStatus[] fileStatuses = fs.listStatus(path);
+
+        for (FileStatus f: fileStatuses) {
+            //path1包含协议名
+            Path path1 = f.getPath();
+            System.out.println(path1.getName()+"是否是目录"+f.isDirectory());
+            System.out.println(path1.getName()+"是否是文件"+f.isFile());
+        }
     }
 }
