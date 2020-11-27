@@ -1,9 +1,7 @@
 package com.examples.hdfs.test;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -84,6 +82,25 @@ public class TestHDFS {
             Path path1 = f.getPath();
             System.out.println(path1.getName()+"是否是目录"+f.isDirectory());
             System.out.println(path1.getName()+"是否是文件"+f.isFile());
+        }
+    }
+
+    //获取文件的块信息
+    @Test
+    public void TestGetBlockInfomation() throws IOException {
+        Path path = new Path("/深度学习和数据分析.docx");
+        RemoteIterator<LocatedFileStatus> status = fs.listLocatedStatus(path);
+
+        while (status.hasNext()){
+            LocatedFileStatus locatedFileStatus = status.next();
+            System.out.println(locatedFileStatus.getOwner());
+            System.out.println(locatedFileStatus.getGroup());
+
+            BlockLocation[] blockLocations = locatedFileStatus.getBlockLocations();
+            for (BlockLocation blockLocatin: blockLocations) {
+                System.out.println(blockLocatin);
+                System.out.println("========================");
+            }
         }
     }
 }
