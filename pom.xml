@@ -14,6 +14,7 @@
         <module>JUC</module>
         <module>HDFS</module>
         <module>MachineLearing</module>
+        <module>Zookeeper</module>
     </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
