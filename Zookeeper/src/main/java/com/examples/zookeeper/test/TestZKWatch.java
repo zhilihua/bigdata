@@ -127,7 +127,7 @@ public class TestZKWatch {
 
     }
 
-    // 持续watch：  不合适
+
     @Test
     public void testLsAndAlwaysWatchCurrent() throws Exception {
 
