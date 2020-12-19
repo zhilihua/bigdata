@@ -66,7 +66,6 @@ public class TestZKWatch {
     private CountDownLatch cdl=new CountDownLatch(1);
 
     // 监听器的特点： 只有当次有效
-    // get path watch
     @Test
     public void getAndWatch() throws Exception {
         //zooKeeper = new ZooKeeper(connectString, sessionTimeout, true)  会自动调用Before里面的process
