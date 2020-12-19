@@ -90,4 +90,84 @@ public class TestZKWatch {
         cdl.await();
 
     }
+
+    // 持续watch：  不合适
+    @Test
+    public void lsAndAlwaysWatch() throws Exception {
+
+        //传入true,默认使用客户端自带的观察者
+        zooKeeper.getChildren("/data2",new Watcher() {
+
+            // process由listener线程调用，listener线程不能阻塞,阻塞后无法再调用process
+            //当前线程自己设置的观察者
+            @Override
+            public void process(WatchedEvent event) {
+
+                System.out.println(event.getPath()+"发生了以下事件:"+event.getType());
+
+                System.out.println(Thread.currentThread().getName()+"---->我还活着......");
+
+                try {
+                    lsAndAlwaysWatch();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        //客户端所在的进程不能死亡
+        while(true) {
+
+            Thread.sleep(5000);
+
+            System.out.println(Thread.currentThread().getName()+"---->我还活着......");
+
+        }
+
+    }
+
+    // 持续watch：  不合适
+    @Test
+    public void testLsAndAlwaysWatchCurrent() throws Exception {
+
+        lsAndAlwaysWatchCurrent();
+
+        //客户端所在的进程不能死亡
+        while(true) {
+
+            Thread.sleep(5000);
+
+            System.out.println(Thread.currentThread().getName()+"---->我还活着......");
+
+        }
+
+    }
+
+    @Test
+    public void lsAndAlwaysWatchCurrent() throws Exception {
+
+        //传入true,默认使用客户端自带的观察者
+        zooKeeper.getChildren("/data2",new Watcher() {
+
+            // process由listener线程调用，listener线程不能阻塞,阻塞后无法再调用process
+            //当前线程自己设置的观察者
+            @Override
+            public void process(WatchedEvent event) {
+
+                System.out.println(event.getPath()+"发生了以下事件:"+event.getType());
+
+                System.out.println(Thread.currentThread().getName()+"---->我还活着......");
+
+                try {
+                    //递归调用
+                    lsAndAlwaysWatchCurrent();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
 }
