@@ -15,6 +15,7 @@
         <module>HDFS</module>
         <module>MachineLearing</module>
         <module>Zookeeper</module>
+        <module>Hive</module>
     </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
