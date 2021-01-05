@@ -16,6 +16,7 @@
         <module>MachineLearing</module>
         <module>Zookeeper</module>
         <module>Hive</module>
+        <module>Flume</module>
     </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
