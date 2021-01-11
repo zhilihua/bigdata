@@ -17,6 +17,7 @@
         <module>Zookeeper</module>
         <module>Hive</module>
         <module>Flume</module>
+        <module>Kafka</module>
     </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
