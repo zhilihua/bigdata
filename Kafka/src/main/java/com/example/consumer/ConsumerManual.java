@@ -7,6 +7,7 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.TopicPartition;
 
 import java.io.*;
+import java.time.Duration;
 import java.util.*;
 
 /**
@@ -54,7 +55,7 @@ public class ConsumerManual {
         );
         
         while (true){
-            ConsumerRecords<String, String> records = consumer.poll(2000);
+            ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(2000));
             //原子绑定
             {
                 for (ConsumerRecord<String, String> record : records) {
