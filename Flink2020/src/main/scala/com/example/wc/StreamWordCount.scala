@@ -10,7 +10,7 @@ object StreamWordCount {
       //从程序运行参数读取host和port
 //      val params = ParameterTool.fromArgs(args)
 //      val hostname = params.get("host")
-//      val port = params.get("port")
+//      val port = params.getInt("port")
       //接收socket文本流
        val inputDataStream = env.socketTextStream("hadoop102", 7777)
 
