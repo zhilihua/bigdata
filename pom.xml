@@ -19,6 +19,7 @@
         <module>Flume</module>
         <module>Kafka</module>
         <module>Flink2020</module>
+        <module>ETLInterceptor</module>
     </modules>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
