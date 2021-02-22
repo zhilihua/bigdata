@@ -1,6 +1,6 @@
 package com.example.apitest
 
-import org.apache.flink.api.common.functions.ReduceFunction
+import org.apache.flink.api.common.functions.{MapFunction, ReduceFunction}
 import org.apache.flink.api.java.functions.KeySelector
 import org.apache.flink.streaming.api.scala._
 
@@ -44,7 +44,8 @@ object TransformTest {
 
         // 4.合流
         val warningStream: DataStream[(String, Double)] = highTempStream.map(
-            data => (data.id, data.temperature)
+//            data => (data.id, data.temperature)
+            new MyMapper
         )
         val connectedStreams: ConnectedStreams[(String, Double), SensorReading] = warningStream.connect(lowTempStream)
         val resultStream: DataStream[Product] = connectedStreams.map(
@@ -70,4 +71,9 @@ class MyReduce extends ReduceFunction[SensorReading] {
     override def reduce(t: SensorReading, t1: SensorReading): SensorReading = {
         SensorReading(t.id, t.timestamp.max(t1.timestamp), t.temperature.min(t1.temperature))
     }
+}
+
+// 自定义MapFunction
+class MyMapper extends MapFunction[SensorReading, (String, Double)]{
+    override def map(t: SensorReading): (String, Double) = (t.id, t.temperature)
 }
