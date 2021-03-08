@@ -19,5 +19,7 @@ object WordCount {
         //打印输出
 
         resultDataSet.print()
+
+        env.execute("wc")
     }
 }
